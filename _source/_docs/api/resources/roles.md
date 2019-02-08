@@ -49,22 +49,62 @@ curl -v -X GET \
 
 ~~~json
 [
-  {
-    "id": "ra1b8aahBZuGJRRa30g4",
-    "label": "Organization Administrator",
-    "type": "ORG_ADMIN",
-    "status": "ACTIVE",
-    "created": "2015-09-06T14:55:11.000Z",
-    "lastUpdated": "2015-09-06T14:55:11.000Z"
-  },
-  {
-    "id": "IFIFAX2BIRGUSTQ",
-    "label": "Application Administrator",
-    "type": "APP_ADMIN",
-    "status": "ACTIVE",
-    "created": "2015-09-06T14:55:11.000Z",
-    "lastUpdated": "2015-09-06T14:55:11.000Z"
-  }
+    {
+        "id": "IFIFAX2BIRGUSTQ",
+        "label": "Application Administrator",
+        "type": "APP_ADMIN",
+        "status": "ACTIVE",
+        "created": "2019-02-06T16:17:40.000Z",
+        "lastUpdated": "2019-02-06T16:17:40.000Z",
+        "assignmentType": "USER",
+        "_links": {
+            "assignee": {
+                "href": "http://{yourOktaDomain}/api/v1/users/00ur32Vg0fvpyHZeQ0g3"
+            }
+        }
+    },
+    {
+        "id": "JBCUYUC7IRCVGS27IFCE2SKO",
+        "label": "Help Desk Administrator",
+        "type": "HELP_DESK_ADMIN",
+        "status": "ACTIVE",
+        "created": "2019-02-06T16:17:40.000Z",
+        "lastUpdated": "2019-02-06T16:17:40.000Z",
+        "assignmentType": "USER",
+        "_links": {
+            "assignee": {
+                "href": "http://{yourOktaDomain}/api/v1/users/00ur32Vg0fvpyHZeQ0g3"
+            }
+        }
+    },
+    {
+        "id": "ra125eqBFpETrMwu80g4",
+        "label": "Organization Administrator",
+        "type": "ORG_ADMIN",
+        "status": "ACTIVE",
+        "created": "2019-02-06T16:17:40.000Z",
+        "lastUpdated": "2019-02-06T16:17:40.000Z",
+        "assignmentType": "USER",
+        "_links": {
+            "assignee": {
+                "href": "http://{yourOktaDomain}/api/v1/users/00ur32Vg0fvpyHZeQ0g3"
+            }
+        }
+    },
+    {
+        "id": "gra25fapn1prGTBKV0g4",
+        "label": "API Access Management Administrator",
+        "type": "API_ACCESS_MANAGEMENT_ADMIN",
+        "status": "ACTIVE",
+        "created": "2019-02-06T16:20:57.000Z",
+        "lastUpdated": "2019-02-06T16:20:57.000Z",
+        "assignmentType": "GROUP",
+        "_links": {
+            "assignee": {
+                "href": "http://{yourOktaDomain}/api/v1/groups/00g1ousb3XCr9Dkr20g4"
+            }
+        }
+    }
 ]
 ~~~
 
@@ -641,16 +681,41 @@ HTTP/1.1 204 No Content
 
 ## Role Model
 
-### Example
+### Examples
 
+#### Sample Role Assigned to the User directly
 ~~~json
 {
-  "id": "ra1b7aguRQ7e5iKYb0g4",
-  "label": "Read-only Administrator",
-  "type": "READ_ONLY_ADMIN",
-  "status": "ACTIVE",
-  "created": "2015-09-04T03:27:16.000Z",
-  "lastUpdated": "2015-09-04T03:27:16.000Z"
+    "id": "ra125eqBFpETrMwu80g4",
+    "label": "Organization Administrator",
+    "type": "ORG_ADMIN",
+    "status": "ACTIVE",
+    "created": "2019-02-06T16:17:40.000Z",
+    "lastUpdated": "2019-02-06T16:17:40.000Z",
+    "assignmentType": "USER",
+    "_links": {
+        "assignee": {
+            "href": "http://{yourOktaDomain}/api/v1/users/00ur32Vg0fvpyHZeQ0g3"
+        }
+    }
+}
+~~~
+
+#### Sample Role Assigned to the a Group
+~~~json
+{
+    "id": "gra25fapn1prGTBKV0g4",
+    "label": "API Access Management Administrator",
+    "type": "API_ACCESS_MANAGEMENT_ADMIN",
+    "status": "ACTIVE",
+    "created": "2019-02-06T16:20:57.000Z",
+    "lastUpdated": "2019-02-06T16:20:57.000Z",
+    "assignmentType": "GROUP",
+    "_links": {
+        "assignee": {
+            "href": "http://{yourOktaDomain}/api/v1/groups/00g1ousb3XCr9Dkr20g4"
+        }
+    }
 }
 ~~~
 
@@ -658,16 +723,17 @@ HTTP/1.1 204 No Content
 
 The role model defines several **read-only** properties:
 
-| Property    | Description                                           | DataType                                                                                                    | Nullable | Unique | Read Only |
-|:------------|:------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|:---------|:-------|:----------|
-| id          | Unique key for the role assignment                    | String                                                                                                      | FALSE    | TRUE   | TRUE      |
-| label       | Display name of role                                  | String                                                                                                      | FALSE    | FALSE  | TRUE      |
-| type        | Type of role                                          | `SUPER_ADMIN`, `ORG_ADMIN`, `API_ACCESS_MANAGEMENT_ADMIN`, `APP_ADMIN`, `USER_ADMIN`, `MOBILE_ADMIN`, `READ_ONLY_ADMIN`, `HELP_DESK_ADMIN` | FALSE    | FALSE  | TRUE      |
-| status      | Status of role assignment                             | `ACTIVE`                                                                                                    | FALSE    | FALSE  | TRUE      |
-| created     | Timestamp when app user was created                   | Date                                                                                                        | FALSE    | FALSE  | TRUE      |
-| lastUpdated | Timestamp when app user was last updated              | Date                                                                                                        | FALSE    | FALSE  | TRUE      |
-| _embedded   | Embedded resources related to the role assignment     | [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-06)                                              | TRUE     | FALSE  | TRUE      |
-| _links      | Discoverable resources related to the role assignment | [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-06)                                              | TRUE     | FALSE  | TRUE      |
+| Property       | Description                                           | DataType                                                                                                    | Nullable | Unique | Read Only |
+|:---------------|:------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|:---------|:-------|:----------|
+| id             | Unique key for the role assignment                    | String                                                                                                      | FALSE    | TRUE   | TRUE      |
+| label          | Display name of role                                  | String                                                                                                      | FALSE    | FALSE  | TRUE      |
+| type           | Type of role                                          | `SUPER_ADMIN`, `ORG_ADMIN`, `API_ACCESS_MANAGEMENT_ADMIN`, `APP_ADMIN`, `USER_ADMIN`, `MOBILE_ADMIN`, `READ_ONLY_ADMIN`, `HELP_DESK_ADMIN` | FALSE    | FALSE  | TRUE      |
+| status         | Status of role assignment                             | `ACTIVE`                                                                                                    | FALSE    | FALSE  | TRUE      |
+| assignmentType | The type of assignment                                | `USER`, `GROUP`                                                                                             | FALSE    | FALSE  | TRUE      |
+| created        | Timestamp when app user was created                   | Date                                                                                                        | FALSE    | FALSE  | TRUE      |
+| lastUpdated    | Timestamp when app user was last updated              | Date                                                                                                        | FALSE    | FALSE  | TRUE      |
+| _embedded      | Embedded resources related to the role assignment     | [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-06)                                              | TRUE     | FALSE  | TRUE      |
+| _links         | Discoverable resources related to the role assignment | [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-06)                                              | TRUE     | FALSE  | TRUE      |
 
 #### Role Types
 
@@ -686,3 +752,12 @@ Refer to the [product documentation](https://help.okta.com/en/prod/Content/Topic
 | `READ_ONLY_ADMIN` | Read-only Administrator      |                         |
 
 `API_ACCESS MANAGEMENT_ADMIN` is available if the API Access Management feature be enabled. For a description of what the role can do, see [API Access Management Best Practices](/use_cases/api_access_management/#recommended-practices-for-api-access-management).
+
+#### Assignment Types
+
+A role could either be assigned to the user directly or be assigned to a group, of which the user is a member. The `assignee` in `_links` provides more details about the user or the group to which the assignment was made.
+
+| Assignment Type   | Description                                                        |
+|:------------------|:-------------------------------------------------------------------|
+| `USER       `     | Role was assigned to the user directly                             |
+| `GROUP`           | Role was assigned to an admin group, of which the user is a member |
